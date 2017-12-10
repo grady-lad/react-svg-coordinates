@@ -2,14 +2,14 @@
  * @class ExampleComponent
  */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import "./styles.css";
+import './styles.css';
 
 export default class ExampleComponent extends Component {
   static propTypes = {
-    text: PropTypes.string
+    text: PropTypes.string,
   };
 
   render() {
