@@ -30,28 +30,36 @@ export class SvgCoords extends Component {
 
   getMinY = () => {
     const { data } = this.props;
-    return data.reduce((min, p) => (p.y < min ? p.y : min), data[0].y);
+    const initial = data[0] ? data[0].y : 0;
+    return data.reduce((min, p) => (p.y < min ? p.y : min), initial);
   };
 
   getMaxY = () => {
     const { data } = this.props;
-    return data.reduce((max, p) => (p.y > max ? p.y : max), data[0].y);
+    const initial = data[0] ? data[0].y : 0;
+    return data.reduce((max, p) => (p.y > max ? p.y : max), initial);
   };
 
-  getSvgX = (x) => {
-    const { viewBoxWidth } = this.props;
-    const xPoint = x / this.getMaxX();
-    return xPoint * viewBoxWidth;
+  getSvgX = (x = 0) => {
+    if (x) {
+      const { viewBoxWidth } = this.props;
+      const xPoint = x / this.getMaxX();
+      return xPoint * viewBoxWidth;
+    }
+    return x;
   };
 
-  getSvgY = (y) => {
-    const { viewBoxHeigth } = this.props;
-    const minY = this.getMinY();
-    const maxY = this.getMaxY();
-    return (
-      (viewBoxHeigth * maxY - viewBoxHeigth * y) / //eslint-disable-line
-      (maxY - minY)
-    );
+  getSvgY = (y = 0) => {
+    if (y) {
+      const { viewBoxHeigth } = this.props;
+      const minY = this.getMinY();
+      const maxY = this.getMaxY();
+      return (
+        (viewBoxHeigth * maxY - viewBoxHeigth * y) / //eslint-disable-line
+        (maxY - minY)
+      );
+    }
+    return y;
   };
 
   getChartHelpers = () => ({
