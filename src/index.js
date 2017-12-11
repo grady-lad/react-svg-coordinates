@@ -6,17 +6,26 @@ export class SvgCoords extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      svgData: props.data.reduce((svgPointArr, point) => {
-        const { x, y, ...rest } = point;
-        const currCord = {
-          svgX: this.getSvgX(x),
-          svgY: this.getSvgY(y),
-          ...rest,
-        };
-        return [currCord, ...svgPointArr];
-      }, []),
+      svgData: this.setsvgData(props.data),
     };
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.data.length !== prevProps.data.length) {
+      this.setsvgData(this.props.data);
+    }
+  }
+
+  setsvgData = (data = []) =>
+    data.reduce((svgPointArr, point) => {
+      const { x, y, ...rest } = point;
+      const currCord = {
+        svgX: this.getSvgX(x),
+        svgY: this.getSvgY(y),
+        ...rest,
+      };
+      return [currCord, ...svgPointArr];
+    }, []);
 
   getMinX = () => {
     const { data } = this.props;
