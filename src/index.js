@@ -3,30 +3,6 @@ import PropTypes from 'prop-types';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 export class SvgCoords extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      svgData: this.setsvgData(props.data),
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.data.length !== prevProps.data.length) {
-      this.setsvgData(this.props.data);
-    }
-  }
-
-  setsvgData = (data = []) =>
-    data.reduce((svgPointArr, point) => {
-      const { x, y, ...rest } = point;
-      const currCord = {
-        svgX: this.getSvgX(x),
-        svgY: this.getSvgY(y),
-        ...rest,
-      };
-      return [currCord, ...svgPointArr];
-    }, []);
-
   getMinX = () => {
     const { data } = this.props;
     return data.length > 0 ? data[0].x : 0;
@@ -80,7 +56,6 @@ export class SvgCoords extends Component {
       getSvgX: this.getSvgX,
       getSvgY: this.getSvgY,
     },
-    svgData: this.state.svgData,
   });
 
   render() {
