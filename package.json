@@ -1,7 +1,8 @@
 {
   "name": "react-svg-coordfuncs",
-  "version": "1.0.9",
-  "description": "Boilerplate for publishing modern React modules with Rollup",
+  "version": "1.0.0",
+  "description":
+    "Function for your SVG react component to calculate x and y coordinates",
   "author": "Martin O'Grady",
   "license": "MIT",
   "repository": {
