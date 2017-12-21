@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.container-ex {
+  margin: 0 auto;
+  width: 700px;
+}
+
+.graph-container {
+  height: 500px;
+}

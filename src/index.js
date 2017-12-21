@@ -5,57 +5,66 @@ import hoistNonReactStatic from 'hoist-non-react-statics';
 export class SvgCoords extends Component {
   getMinX = () => {
     const { data } = this.props;
-    return data.length > 0 ? data[0].x : 0;
+    return data.length > 0 ? data[0] : { x: 0, y: 0 };
   };
 
   getMaxX = () => {
     const { data } = this.props;
-    return data.length > 0 ? data[data.length - 1].x : 0;
+    return data.length > 0 ? data[data.length - 1] : { x: 0, y: 0 };
   };
 
   getMinY = () => {
     const { data } = this.props;
-    const initial = data[0] ? data[0].y : 0;
-    return data.reduce((min, p) => (p.y < min ? p.y : min), initial);
+    const initial = data[0] ? data[0] : { x: 0, y: 0 };
+    return data.reduce((min, p) => (p.y < min.y ? p : min), initial);
   };
 
   getMaxY = () => {
     const { data } = this.props;
-    const initial = data[0] ? data[0].y : 0;
-    return data.reduce((max, p) => (p.y > max ? p.y : max), initial);
+    const initial = data[0] ? data[0] : { x: 0, y: 0 };
+    return data.reduce((max, p) => (p.y > max.y ? p : max), initial);
   };
 
-  getSvgX = (x = 0) => {
+  getSvgX = (x = 0, ignorePadding = false) => {
     if (x) {
-      const { viewBoxWidth } = this.props;
-      const xPoint = x / this.getMaxX();
-      return xPoint * viewBoxWidth;
+      const { viewBoxWidth, topBottomPadding } = this.props;
+      const { x: maxX } = this.getMaxX();
+      if (ignorePadding) {
+        const xPoint = x / maxX;
+        return xPoint * viewBoxWidth;
+      }
+      return topBottomPadding + x / maxX * (viewBoxWidth - topBottomPadding);
     }
-    return x;
+    return 0;
   };
 
-  getSvgY = (y = 0) => {
+  getSvgY = (y = 0, ignorePadding = false) => {
     if (y) {
-      const { viewBoxHeigth } = this.props;
-      const minY = this.getMinY();
-      const maxY = this.getMaxY();
+      const { viewBoxHeigth, sidesPadding } = this.props;
+      const { y: minY } = this.getMinY();
+      const { y: maxY } = this.getMaxY();
+      if (ignorePadding) {
+        return (
+          (viewBoxHeigth * maxY - viewBoxHeigth * y) / //eslint-disable-line
+          (maxY - minY)
+        );
+      }
       return (
-        (viewBoxHeigth * maxY - viewBoxHeigth * y) / //eslint-disable-line
+        ((viewBoxHeigth - sidesPadding) * maxY -
+          (viewBoxHeigth - sidesPadding) * y) /
         (maxY - minY)
       );
     }
-    return y;
+    return 0;
   };
 
   getChartHelpers = () => ({
-    coordFuncs: {
-      getMinX: this.getMinX,
-      getMaxX: this.getMaxX,
-      getMinY: this.getMinY,
-      getMaxY: this.getMaxY,
-      getSvgX: this.getSvgX,
-      getSvgY: this.getSvgY,
-    },
+    getMinX: this.getMinX,
+    getMaxX: this.getMaxX,
+    getMinY: this.getMinY,
+    getMaxY: this.getMaxY,
+    getSvgX: this.getSvgX,
+    getSvgY: this.getSvgY,
   });
 
   render() {
@@ -67,12 +76,16 @@ SvgCoords.propTypes = {
   viewBoxHeigth: PropTypes.number,
   data: PropTypes.array.isRequired, // TODO: Disable this line
   render: PropTypes.func.isRequired,
+  topBottomPadding: PropTypes.number,
+  sidesPadding: PropTypes.number,
 };
 // DEFAULT PROPS
 SvgCoords.defaultProps = {
   viewBoxWidth: 0,
   viewBoxHeigth: 0,
   data: [],
+  topBottomPadding: 0,
+  sidesPadding: 0,
 };
 
 export const SvgCoordsHOC = (Comp) => {

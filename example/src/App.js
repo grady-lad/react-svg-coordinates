@@ -1,13 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { LineChart, AreaChart, ScatterPlot } from './Charts/';
 
-import ExampleComponent from 'react-modern-library-boilerplate';
-
-export default class App extends Component {
-  render() {
-    return (
+const App = () => (
+  <div className="container-ex" style={{ textAlign: 'center' }}>
+    <h1>React SVG Coordiante Functions</h1>
+    <p> Write some introduction here</p>
+    <section>
+      <h2>Line Chart</h2>
       <div>
-        <ExampleComponent text="Modern React component module" />
+        <LineChart />
       </div>
-    );
-  }
-}
+    </section>
+    <section>
+      <h2>Area Chart</h2>
+      <div>
+        <AreaChart />
+      </div>
+    </section>
+    <section>
+      <h2>Scatter Plot</h2>
+      <div> View source enter github url here</div>
+      <div>
+        <ScatterPlot />
+      </div>
+    </section>
+  </div>
+);
+
+export default App;
