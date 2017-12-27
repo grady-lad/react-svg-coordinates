@@ -74,7 +74,12 @@ export class SvgCoords extends Component {
 SvgCoords.propTypes = {
   viewBoxWidth: PropTypes.number,
   viewBoxHeigth: PropTypes.number,
-  data: PropTypes.array.isRequired, // TODO: Disable this line
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
   render: PropTypes.func.isRequired,
   topBottomPadding: PropTypes.number,
   sidesPadding: PropTypes.number,
@@ -90,7 +95,7 @@ SvgCoords.defaultProps = {
 
 export const SvgCoordsHOC = (Comp) => {
   const Wrapper = props => (
-    <SvgCoords render={coordProps => <Comp {...coordProps} {...props} />} />
+    <SvgCoords render={coordProps => <Comp {...props} {...coordProps} />} />
   );
   Wrapper.displayName = `SvgCoordsHOC(${Component.displayName ||
     Component.name})`;

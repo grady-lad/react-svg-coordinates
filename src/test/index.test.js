@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SvgCoords } from '..';
+import { SvgCoords, SvgCoordsHOC } from '..';
 
 const dataForSvg = [
   { x: 1, y: 29, some: 'data1' },
@@ -125,6 +125,15 @@ describe('svg co-ordinate tests', () => {
           sidesPadding: 20,
         }).getSvgY(23, true),
       ).toEqual(20);
+    });
+  });
+  describe('SvgCoordsHOC', () => {
+    test('should render component with coordProps and user custom props', () => {
+      const TestComp = () => <div> hey </div>;
+      const TestHoc = SvgCoordsHOC(TestComp);
+      const props = { abc: 123 };
+      const rendered = shallow(<TestHoc {...props} />);
+      expect(rendered.dive().props().abc).toBe(123);
     });
   });
 });
