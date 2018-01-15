@@ -25,37 +25,26 @@ export class SvgCoords extends Component {
     return data.reduce((max, p) => (p.y > max.y ? p : max), initial);
   };
 
-  getSvgX = (x = 0, ignorePadding = false) => {
+  getSvgX = (x = 0) => {
     if (x) {
-      const { viewBoxWidth, topBottomPadding } = this.props;
+      const { viewBoxWidth, yAxisArea } = this.props;
       const { x: maxX } = this.getMaxX();
-      if (ignorePadding) {
-        const xPoint = x / maxX;
-        return xPoint * viewBoxWidth;
-      }
-      return topBottomPadding + x / maxX * (viewBoxWidth - topBottomPadding);
+      return yAxisArea + x / maxX * (viewBoxWidth - yAxisArea);
     }
-    return 0;
+    return this.props.yAxisArea;
   };
 
-  getSvgY = (y = 0, ignorePadding = false) => {
+  getSvgY = (y = 0) => {
     if (y) {
-      const { viewBoxHeigth, sidesPadding } = this.props;
+      const { viewBoxHeigth, xAxisArea } = this.props;
       const { y: minY } = this.getMinY();
       const { y: maxY } = this.getMaxY();
-      if (ignorePadding) {
-        return (
-          (viewBoxHeigth * maxY - viewBoxHeigth * y) / //eslint-disable-line
-          (maxY - minY)
-        );
-      }
       return (
-        ((viewBoxHeigth - sidesPadding) * maxY -
-          (viewBoxHeigth - sidesPadding) * y) /
+        ((viewBoxHeigth - xAxisArea) * maxY - (viewBoxHeigth - xAxisArea) * y) /
         (maxY - minY)
       );
     }
-    return 0;
+    return this.props.xAxisArea;
   };
 
   getChartHelpers = () => ({
@@ -81,16 +70,16 @@ SvgCoords.propTypes = {
     }),
   ).isRequired,
   render: PropTypes.func.isRequired,
-  topBottomPadding: PropTypes.number,
-  sidesPadding: PropTypes.number,
+  yAxisArea: PropTypes.number,
+  xAxisArea: PropTypes.number,
 };
 // DEFAULT PROPS
 SvgCoords.defaultProps = {
   viewBoxWidth: 0,
   viewBoxHeigth: 0,
   data: [],
-  topBottomPadding: 0,
-  sidesPadding: 0,
+  yAxisArea: 0,
+  xAxisArea: 0,
 };
 
 export const SvgCoordsHOC = (Comp) => {

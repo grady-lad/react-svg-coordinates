@@ -67,24 +67,19 @@ describe('svg co-ordinate tests', () => {
     test('should return 0 if viewBoxWidth prop is 0', () => {
       expect(getComponent({ viewBoxWidth: 0 }).getSvgX()).toEqual(0);
     });
-    test('should calculate correct x coordinate location even if padding not defined', () => {
+    test('should calculate correct x coordinate location even if xAxisArea is not defined', () => {
       expect(
         getComponent({ data: dataForSvg, viewBoxWidth: 20 }).getSvgX(12),
       ).toEqual(80);
     });
-    test('should calculate correct x coordinate location when padding defined', () => {
+    test('should calculate correct x coordinate location when xAxisArea is defined', () => {
       expect(
         getComponent({
           data: dataForSvg,
           viewBoxWidth: 40,
-          topBottomPadding: 20,
+          xAxisArea: 20,
         }).getSvgX(12),
-      ).toEqual(100);
-    });
-    test('should calculate correct x coordinate location ignoring padding params ', () => {
-      expect(
-        getComponent({ data: dataForSvg, viewBoxWidth: 20 }).getSvgX(30, true),
-      ).toEqual(200);
+      ).toEqual(160);
     });
   });
   describe('getSvgY', () => {
@@ -94,7 +89,7 @@ describe('svg co-ordinate tests', () => {
     test('should return 0 if viewBoxWidth prop is 0', () => {
       expect(getComponent({ viewBoxHeigth: 0 }).getSvgY()).toEqual(0);
     });
-    test('should calculate correct y coordinate location even if padding not defined ', () => {
+    test('should calculate correct y coordinate location even if yAxisArea not defined ', () => {
       expect(
         getComponent({
           data: dataForSvg,
@@ -102,29 +97,14 @@ describe('svg co-ordinate tests', () => {
         }).getSvgY(23),
       ).toEqual(20);
     });
-    test('should calculate correct y coordinate location when padding defined ', () => {
-      expect(
-        getComponent({
-          data: dataForSvg,
-          viewBoxHeigth: 20,
-        }).getSvgY(23),
-      ).toEqual(20);
+    test('should calculate correct y coordinate location when yAxisArea defined ', () => {
       expect(
         getComponent({
           data: dataForSvg,
           viewBoxHeigth: 40,
-          sidesPadding: 20,
+          yAxisArea: 20,
         }).getSvgY(23),
-      ).toEqual(20);
-    });
-    test('should calculate correct y coordinate location ignoring padding params in calc', () => {
-      expect(
-        getComponent({
-          data: dataForSvg,
-          viewBoxHeigth: 20,
-          sidesPadding: 20,
-        }).getSvgY(23, true),
-      ).toEqual(20);
+      ).toEqual(40);
     });
   });
   describe('SvgCoordsHOC', () => {
