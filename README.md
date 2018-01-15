@@ -1,8 +1,14 @@
-# react-svg-coordfuncs
+# react-svg-coordinates
 
 A React component that provides functions to allow you to easily calculate x & y coordinates for each item in a given dataset to display on a svg TODO Update
 
-## What is this? / Motivation
+## What is this?
+
+This library aims to help you map your dataset for an svg over the SVG coordinate system, common usescase's of this would be creating a chart using svg such as a line-chart or area-chart.
+
+There are a lot of out of the box charting solutions which help you create a basic graph in no time, but these charts are hard to extend when you want to introduce some custom functionality.
+
+react-svg-coordiantes provides you the functionality to calculate the svg coordinates of each item in your dataset, giving you full control when composing your own svg charts.
 
 ## Installation
 
@@ -42,7 +48,7 @@ const ages = [
  * We want to display age along the y axis so lets map age to y.
  */
 const svgData = ages.map((item, idx) => ({
-  x: idx, // where the item will be displayed along the x axis of the svg
+  x: idx, // where the item will be displayed along the x axis of the svg (usually linear e.g 1,2,3,...10)
   y: item.age, // where the item will be displayed along the y axis of the svg
   ...item,
 }));
@@ -98,43 +104,41 @@ The data for which we want to calculate svg co-ordinates for.
 
 Each item in the array can be of any shape. But MUST contain a `x` and `y` prop.
 
-The `x` props is the value where the item will appear along the x-axis.
+The `x` props is the value where the item will appear along the x-axis (this is usually linear E.G index where item appears in the array).
 
 The `y` props is the value where the item will appear along the y-axis.
 
 ### viewBoxWidth
  > number | defaults to 0
- 
- Must be the same value as the width attribute used in the targeted svg.
+
+ Must be the same value as the width attribute used in the viewbox property of the targeted svg.
 
 ### viewBoxHeigth
 
 > number | defaults to 0
- 
- Must be the same value as the height attribute used in the targeted svg.
 
-### topBottomPadding
+ Must be the same value as the height attribute used in the viewbox property of the targeted svg.
 
-> number | defaults to 0
-
- If defined every item will be rendered taking padding into place
- (Useful if you are using axis)
-
-### sidesPadding
+### yAxisArea
 
 > number | defaults to 0
 
- If defined every item will be rendered taking padding into place
- (Useful if you are using axis)
+ If defined the yAxis will have a width of the value passed, allowing you to render labels.
+
+### xAxisArea
+
+> number | defaults to 0
+
+If defined the xAxis will have a height of the value passed, allowing you to render labels.
 
 
 ## Render Prop Function
 
 This is where you can render your svg, the render prop provides the following functions to help you calculate coordiantes
-for your dataset. 
+for your dataset.
 
 ### getMinX
- 
+
 Returns the item in the dataset with the smallest `x` value
 
 ### getMaxX
@@ -153,10 +157,10 @@ Returns the item in the dataset with the largest `y` value
 
 Returns x coordinate for the given parameter
 
-### getSvgY 
+### getSvgY
 
 Returns y coordinate for the given parameter
 
 ## Examples
 
-Basic examples can be found in `/example`.
+Basic examples can be found in `/example`. or on TODO SITE URL
