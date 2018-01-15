@@ -24,7 +24,8 @@ npm install --save react-svg-coordfuncs
 
 ## Usage
 
-Play with the example below on [codesandbox](add url to code sandbox).
+Play with the example below on:
+[![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/13lnlm6r74)
 
 ```javascript
 import { SvgCoords } from 'react-svg-coordfuncs';
