@@ -8,7 +8,7 @@ This library aims to help you map your dataset for an svg over the SVG coordinat
 
 There are a lot of out of the box charting solutions which help you create a basic graph in no time, but these charts are hard to extend when you want to introduce some custom functionality.
 
-react-svg-coordiantes provides you the functionality to calculate the svg coordinates of each item in your dataset, giving you full control when composing your own svg charts.
+react-svg-coordinates provides you the functionality to calculate the svg coordinates of each item in your dataset, giving you full control when composing your own svg charts.
 
 ## Installation
 
@@ -20,7 +20,7 @@ npm install --save react-svg-coordfuncs
 ```
 
 > This package also depends on `react` and `prop-types`. Please make sure you
-> have those installed.
+> have those installed. TODO: Update this in pkg.json
 
 ## Usage
 [![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/13lnlm6r74)
