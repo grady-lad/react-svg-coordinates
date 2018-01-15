@@ -6,7 +6,8 @@ const Axis = ({ X, Y, getSvgY, getSvgX }) => {
   return (
     <g
       style={{
-        stroke: '#bdc3c7',
+        stroke: '#17202A',
+        strokeWidth: '1',
       }}
     >
       <line

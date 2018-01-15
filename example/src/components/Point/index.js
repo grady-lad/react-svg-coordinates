@@ -4,6 +4,11 @@ const Points = ({ data, getSvgX, getSvgY }) => (
   <g className="linechart_points">
     {data.map((point, i) => (
       <circle
+        style={{
+          stroke: '#f3acb1',
+          fill: '#fff',
+          strokeWidth: 2,
+        }}
         key={`linechart_point_${i}`}
         r={5}
         cx={getSvgX(point.x)}
@@ -15,4 +20,3 @@ const Points = ({ data, getSvgX, getSvgY }) => (
 );
 
 export default Points;
-

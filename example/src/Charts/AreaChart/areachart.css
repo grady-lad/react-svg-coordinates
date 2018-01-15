@@ -1,12 +1,12 @@
 .areachart_area {
   padding: 8px;
-  fill: #f3acb1;
+  fill: #d04f48;
   stroke: none;
   opacity: 0.3;
 }
 
 .areachart_path {
-  stroke-width: 2;
+  stroke-width: 3;
   fill: none;
   stroke: #f3acb1;
 }

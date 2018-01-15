@@ -1,14 +1,19 @@
 import React from 'react';
+import './labels.css';
 
-export const XLabels = ({ data, getSvgX }) => (
+export const XLabels = ({ labels, getSvgX }) => (
   <g>
-    {data.map(point => (
+    {labels.map(point => (
       <g
         key={`linechart_label_x_${point.x}`}
         className="linechart_label"
         transform={`translate(${getSvgX(point.x)}, 520)`}
       >
-        <text transform="translate(0, 0)" textAnchor="middle">
+        <text
+          className="label-font"
+          transform="translate(0, 0)"
+          textAnchor="middle"
+        >
           {point.date}
         </text>
       </g>
@@ -16,27 +21,22 @@ export const XLabels = ({ data, getSvgX }) => (
   </g>
 );
 
-export const YLabels = ({ data, getSvgY }) => {
-  const labels = [];
-  for (let i = 0; i <= 10; i++) {
-    labels.push({
-      y: 400 + i,
-    });
-  }
-  return (
-    <g>
-      {labels.reverse().map(point => (
-        <g
-          key={`linechart_label_x_${point.y}`}
-          className="linechart_label"
-          transform={`translate(0, ${getSvgY(point.y)})`}
+export const YLabels = ({ labels, getSvgY }) => (
+  <g>
+    {labels.map(point => (
+      <g
+        key={`linechart_label_x_${point.y}`}
+        className="linechart_label"
+        transform={`translate(0, ${getSvgY(point.y)})`}
+      >
+        <text
+          transform="translate(-10, 0)"
+          textAnchor="middle"
+          className="label-font"
         >
-          <text transform="translate(-10, 0)" textAnchor="middle">
-            {`${Math.round(point.y)} ppm `}
-          </text>
-        </g>
-      ))}
-    </g>
-  );
-};
-
+          {`${Math.round(point.y)} ppm `}
+        </text>
+      </g>
+    ))}
+  </g>
+);

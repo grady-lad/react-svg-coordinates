@@ -1,9 +1,8 @@
 import React from 'react';
 import { SvgCoords } from 'react-svg-coordfuncs';
 import './scatterplot.css';
-import { Axis } from '../../components';
+import { Axis, XLabels, YLabels } from '../../components';
 
-const svgData = [];
 const getType = (idx) => {
   if (idx % 2 === 0) {
     return 'blue';
@@ -16,70 +15,41 @@ const getType = (idx) => {
   }
   return 'orange';
 };
-
-for (let i = 0; i <= 80; i++) {
-  const randomInt = Math.random() * (40 - 1) + 1;
-  svgData.push({
-    x: i,
-    y: randomInt,
-    type: getType(i),
-    label: i,
-  });
-}
-
-const XLabels = ({ data, getSvgX, xLoc }) => {
-  const initSample = Math.round(data.length / 5);
-  const labels = [];
-  labels.push(data[0]);
-  for (let i = initSample; i <= data.length; i += initSample) {
-    labels.push(data[i]);
-  }
-  return (
-    <g>
-      {labels.map(point => (
-        <g
-          key={`linechart_label_x_${point.x}`}
-          className="linechart_label"
-          transform={`translate(${getSvgX(point.x)}, ${xLoc})`}
-        >
-          <text transform="translate(0, 0)" textAnchor="middle">
-            {point.label}
-          </text>
-        </g>
-      ))}
-    </g>
-  );
-};
-
-const YLabels = ({ data, getSvgY, Y }) => {
-  const { minY, maxY } = Y;
-  const initSample = Math.round(40 / 4);
-  const labels = [];
-  // Sort this data it will be easier
-  labels.push(minY);
-  for (let i = initSample; i <= 40; i += initSample) {
-    labels.push({
-      ...data[i],
-      y: i,
+const createSvgData = () => {
+  const items = [];
+  for (let i = 0; i <= 80; i++) {
+    const randomInt = Math.random() * (40 - 1) + 1;
+    items.push({
+      x: i,
+      y: randomInt,
+      type: getType(i),
+      label: i,
     });
   }
-  labels.push(maxY); // TODO: Remove duplicates
-  return (
-    <g>
-      {labels.reverse().map(point => (
-        <g
-          key={`linechart_label_x_${point.y}`}
-          className="linechart_label"
-          transform={`translate(0, ${getSvgY(point.y)})`}
-        >
-          <text transform="translate(0, 0)" textAnchor="middle">
-            {Math.round(point.y)}
-          </text>
-        </g>
-      ))}
-    </g>
-  );
+  return items;
 };
+const svgData = createSvgData();
+
+const createLabels = (items = [], id) => {
+  // we only want 6 labels so only sample when its greater than 6
+  if (items.length > 0 && items.length >= 5) {
+    const sampleRate = Math.round(items.length / 5); // calculate a 5th of the array
+    let rate = sampleRate;
+    const res = [items[0]];
+    for (let i = 0; i <= 3; i++) {
+      const item = items[rate];
+      if (item) {
+        res.push(items[rate]);
+      }
+      rate += sampleRate;
+    }
+    res.push(items[items.length - 1]);
+    return res;
+  }
+  return items;
+};
+
+const yLabels = createLabels(svgData);
 
 const Points = ({ data, getSvgX, getSvgY }) => (
   <g className="linechart_points">
@@ -99,8 +69,8 @@ const Points = ({ data, getSvgX, getSvgY }) => (
 const LineChart = () => (
   <div className="graph-container">
     <SvgCoords
-      topBottomPadding={30}
-      sidesPadding={30}
+      yAxisArea={30}
+      xAxisArea={30}
       viewBoxHeigth={500}
       viewBoxWidth={1000}
       data={svgData}
@@ -114,9 +84,9 @@ const LineChart = () => (
           preserveAspectRatio="none"
         >
           <g>
-            <XLabels data={svgData} getSvgX={getSvgX} xLoc={500} />
+            <XLabels labels={yLabels} getSvgX={getSvgX} xLoc={500} />
             <YLabels
-              data={svgData}
+              labels={yLabels}
               getSvgY={getSvgY}
               xLoc={500}
               Y={{ minY: getMinY(), maxY: getMaxY() }}

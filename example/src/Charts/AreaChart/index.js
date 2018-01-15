@@ -3,7 +3,7 @@ import { SvgCoords } from 'react-svg-coordfuncs';
 
 import './areachart.css';
 
-import { Axis, AreaPath, Points } from '../../components';
+import { Axis, AreaPath, XLabels, YLabels } from '../../components';
 
 const graphData = [
   {
@@ -42,66 +42,33 @@ const svgData = graphData.map((item, idx) => ({
   ...item,
 }));
 
-const XLabels = ({ data, getSvgX }) => (
-  <g>
-    {data.map(point => (
-      <g
-        key={`linechart_label_x_${point.x}`}
-        className="linechart_label"
-        transform={`translate(${getSvgX(point.x)}, 520)`}
-      >
-        <text transform="translate(0, 0)" textAnchor="middle">
-          {point.date}
-        </text>
-      </g>
-    ))}
-  </g>
-);
+const labels = [];
+for (let i = 0; i <= 10; i++) {
+  labels.push({
+    y: 400 + i,
+  });
+}
 
-const YLabels = ({ data, getSvgY }) => {
-  const labels = [];
-  for (let i = 0; i <= 10; i++) {
-    labels.push({
-      y: 400 + i,
-    });
-  }
-  return (
-    <g>
-      {labels.reverse().map(point => (
-        <g
-          key={`linechart_label_x_${point.y}`}
-          className="linechart_label"
-          transform={`translate(0, ${getSvgY(point.y)})`}
-        >
-          <text transform="translate(-10, 0)" textAnchor="middle">
-            {`${Math.round(point.y)} ppm `}
-          </text>
-        </g>
-      ))}
-    </g>
-  );
-};
-
-const LineChart = () => (
+const AreaChart = () => (
   <div className="graph-container">
     <SvgCoords
-      topBottomPadding={30}
-      sidesPadding={30}
+      yAxisArea={50}
+      xAxisArea={30}
       viewBoxHeigth={500}
       viewBoxWidth={1000}
       data={svgData}
       render={({ getMinX, getMaxX, getMinY, getMaxY, getSvgX, getSvgY }) => (
         <svg
-          style={{ padding: '50px' }}
           className="linechart"
           width="100%"
           viewBox={'0 0 1000 500'}
           data-ident="ident-ppm-chart"
           preserveAspectRatio="none"
+          overflow="visible"
         >
           <g>
-            <XLabels data={svgData} getSvgX={getSvgX} getSvgY={getSvgY} />
-            <YLabels data={svgData} getSvgY={getSvgY} />
+            <XLabels labels={svgData} getSvgX={getSvgX} getSvgY={getSvgY} />
+            <YLabels labels={labels} getSvgY={getSvgY} />
             <Axis
               X={{ minX: getMinX(), maxX: getMaxX() }}
               Y={{ minY: getMinY(), maxY: getMaxY() }}
@@ -119,7 +86,6 @@ const LineChart = () => (
                 getSvgY,
               }}
             />
-            <Points data={svgData} getSvgX={getSvgX} getSvgY={getSvgY} />
           </g>
         </svg>
       )}
@@ -127,4 +93,4 @@ const LineChart = () => (
   </div>
 );
 
-export default LineChart;
+export default AreaChart;
