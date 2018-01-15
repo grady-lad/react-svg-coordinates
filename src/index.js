@@ -36,11 +36,11 @@ export class SvgCoords extends Component {
 
   getSvgY = (y = 0) => {
     if (y) {
-      const { viewBoxHeigth, xAxisArea } = this.props;
+      const { viewBoxHeight, xAxisArea } = this.props;
       const { y: minY } = this.getMinY();
       const { y: maxY } = this.getMaxY();
       return (
-        ((viewBoxHeigth - xAxisArea) * maxY - (viewBoxHeigth - xAxisArea) * y) /
+        ((viewBoxHeight - xAxisArea) * maxY - (viewBoxHeight - xAxisArea) * y) /
         (maxY - minY)
       );
     }
@@ -62,7 +62,7 @@ export class SvgCoords extends Component {
 }
 SvgCoords.propTypes = {
   viewBoxWidth: PropTypes.number,
-  viewBoxHeigth: PropTypes.number,
+  viewBoxHeight: PropTypes.number,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       x: PropTypes.number.isRequired,
@@ -76,7 +76,7 @@ SvgCoords.propTypes = {
 // DEFAULT PROPS
 SvgCoords.defaultProps = {
   viewBoxWidth: 0,
-  viewBoxHeigth: 0,
+  viewBoxHeight: 0,
   data: [],
   yAxisArea: 0,
   xAxisArea: 0,

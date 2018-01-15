@@ -1,14 +1,14 @@
 # react-svg-coordinates
 
-A React component that provides functions to allow you to easily calculate x & y coordinates for each item in a given dataset to display on a svg TODO Update
+A React component that provides functions to allow you to easily calculate x & y coordinates for each item in a given dataset to display on a SVG. See [here][example-site] for some examples
 
 ## What is this?
 
-This library aims to help you map your dataset for an svg over the SVG coordinate system, common usescase's of this would be creating a chart using svg such as a line-chart or area-chart.
+This library aims to help you map your dataset for an SVG over the SVG coordinate system, common usescase's of this would be creating a chart using SVG such as a line-chart or area-chart.
 
 There are a lot of out of the box charting solutions which help you create a basic graph in no time, but these charts are hard to extend when you want to introduce some custom functionality.
 
-react-svg-coordinates provides you the functionality to calculate the svg coordinates of each item in your dataset, giving you full control when composing your own svg charts.
+react-svg-coordinates provides you the functionality to calculate the SVG coordinates of each item in your dataset, giving you full control when composing your own SVG charts.
 
 ## Installation
 
@@ -16,18 +16,19 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `dependencies`:
 
 ```
-npm install --save react-svg-coordfuncs
+npm install --save react-svg-coordinates
 ```
 
 > This package also depends on `react` and `prop-types`. Please make sure you
-> have those installed. TODO: Update this in pkg.json
+> have those installed.
 
 ## Usage
 [![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/13lnlm6r74)
 
 ```javascript
-import { SvgCoords } from 'react-svg-coordfuncs';
+import { SvgCoords } from 'react-svg-coordinates';
 
+// Our data
 const ages = [
   { age: 12 },
   { age: 2 },
@@ -47,8 +48,8 @@ const ages = [
  * We want to display age along the y axis so lets map age to y.
  */
 const svgData = ages.map((item, idx) => ({
-  x: idx, // where the item will be displayed along the x axis of the svg (usually linear e.g 1,2,3,...10)
-  y: item.age, // where the item will be displayed along the y axis of the svg
+  x: idx, // where the item will be displayed along the x axis of the SVG (usually linear e.g 1,2,3,...10)
+  y: item.age, // where the item will be displayed along the y axis of the SVG
   ...item,
 }));
 
@@ -79,7 +80,7 @@ const Line = ({ data, getSvgX, getSvgY }) => {
 
 const BasicExample = () => (
   <SvgCoords
-    viewBoxHeigth={500}
+    viewBoxHeight={500}
     viewBoxWidth={1000}
     data={svgData}
     render={({ getSvgX, getSvgY }) => (
@@ -99,7 +100,7 @@ const BasicExample = () => (
 
 > array [{x: number, y: number}] | defaults to []
 
-The data for which we want to calculate svg co-ordinates for.
+The data for which we want to calculate SVG co-ordinates for.
 
 Each item in the array can be of any shape. But MUST contain a `x` and `y` prop.
 
@@ -112,7 +113,7 @@ The `y` props is the value where the item will appear along the y-axis.
 
  Must be the same value as the width attribute used in the viewbox property of the targeted svg.
 
-### viewBoxHeigth
+### viewBoxHeight
 
 > number | defaults to 0
 
@@ -133,33 +134,29 @@ If defined the xAxis will have a height of the value passed, allowing you to ren
 
 ## Render Prop Function
 
-This is where you can render your svg, the render prop provides the following functions to help you calculate coordiantes
-for your dataset.
+This is where you can render your SVG, the render prop function contains one parameter which is an object containing various functions which can help you calculate SVG coordinates for your dataset.
 
-### getMinX
+### Summary of render props parameter object.
+| property | type               | description                                                        |
+|--------- |------------------- |------------------------------------------------------------------- |
+| getMinX  | `function()`       | Returns an item in the dataset with the smallest `x` value         |
+| getMaxX  | `function()`       | Returns the item in the dataset with the largest `x` value         |
+| getMinY  | `function()`       | Returns an item in the dataset with the smallest `y` value         |
+| getMaxY  | `function()`       | Returns an item in the dataset with the largest `y` value          |
+| getSvgX  | `function(number)` | Returns the SVG x coordinate for the number passed to the function |
+| getSvgY  | `function(number)` | Returns the SVG y coordinate for the number passed to the function |
 
-Returns the item in the dataset with the smallest `x` value
+## Using as a HOC
 
-### getMaxX
-
-Returns the item in the dataset with the largest `x` value
-
-### getMinY
-
-Returns the item in the dataset with the smallest `y` value
-
-### getMaxY
-
-Returns the item in the dataset with the largest `y` value
-
-### getSvgX
-
-Returns x coordinate for the given parameter
-
-### getSvgY
-
-Returns y coordinate for the given parameter
+The lib can also be used a HOC to use the HOC please import `SvgCoordsHOC` from the library.
 
 ## Examples
 
-Basic examples can be found in `/example`. or on TODO SITE URL
+Basic examples can be found in `/example`. or [here][example-site]
+
+An example of a production app using the lib can be found at [carbondoomsday](http://www.carbondoomsday.com/).
+Repo for the production app can be found [here](https://github.com/giving-a-fuck-about-climate-change/carbon-inferno)
+
+[npm]: https://www.npmjs.com/
+[node]: https://nodejs.org
+[example-site]: https://grady-lad.github.io/react-svg-coordinates/
