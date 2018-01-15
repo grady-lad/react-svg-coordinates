@@ -19,7 +19,22 @@ h2 {
   font-weight: 700;
   color: #48c9d0;
   letter-spacing: 1.5px;
-  padding: 0 0 30px 0;
+  padding: 0 0 10px 0;
+  margin-bottom: 0;
+}
+
+.source-view a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #000000;
+}
+
+.source-view a:hover {
+  color: #48c9d0;
+}
+
+.source-view {
+  margin-bottom: 50px;
 }
 
 .header-container {
