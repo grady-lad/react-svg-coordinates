@@ -1,6 +1,6 @@
 {
   "name": "react-svg-coordinates",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description":
     "Function for your SVG react component to calculate x and y coordinates for a given dataset",
   "author": "Martin O'Grady",

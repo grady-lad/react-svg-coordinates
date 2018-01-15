@@ -111,13 +111,13 @@ The `y` props is the value where the item will appear along the y-axis.
 ### viewBoxWidth
  > number | defaults to 0
 
- Must be the same value as the width attribute used in the viewbox property of the targeted svg.
+ Must be the same value as the width attribute used in the viewbox property of the targeted SVG.
 
 ### viewBoxHeight
 
 > number | defaults to 0
 
- Must be the same value as the height attribute used in the viewbox property of the targeted svg.
+ Must be the same value as the height attribute used in the viewbox property of the targeted SVG.
 
 ### yAxisArea
 
@@ -130,7 +130,6 @@ The `y` props is the value where the item will appear along the y-axis.
 > number | defaults to 0
 
 If defined the xAxis will have a height of the value passed, allowing you to render labels.
-
 
 ## Render Prop Function
 
@@ -152,9 +151,10 @@ The lib can also be used a HOC to use the HOC please import `SvgCoordsHOC` from 
 
 ## Examples
 
-Basic examples can be found in `/example`. or [here][example-site]
+Basic examples can be found in `/example` or [here][example-site]
 
 An example of a production app using the lib can be found at [carbondoomsday](http://www.carbondoomsday.com/).
+
 Repo for the production app can be found [here](https://github.com/giving-a-fuck-about-climate-change/carbon-inferno)
 
 [npm]: https://www.npmjs.com/
