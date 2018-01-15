@@ -23,8 +23,6 @@ npm install --save react-svg-coordfuncs
 > have those installed.
 
 ## Usage
-
-Play with the example below on:
 [![codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/13lnlm6r74)
 
 ```javascript
