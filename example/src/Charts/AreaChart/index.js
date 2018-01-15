@@ -1,5 +1,5 @@
 import React from 'react';
-import { SvgCoords } from 'react-svg-coordfuncs';
+import { SvgCoords } from 'react-svg-coordinates';
 
 import './areachart.css';
 
