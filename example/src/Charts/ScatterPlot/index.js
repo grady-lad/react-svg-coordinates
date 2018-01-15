@@ -71,7 +71,7 @@ const LineChart = () => (
     <SvgCoords
       yAxisArea={30}
       xAxisArea={30}
-      viewBoxHeigth={500}
+      viewBoxHeight={500}
       viewBoxWidth={1000}
       data={svgData}
       render={({ getMinX, getMaxX, getMinY, getMaxY, getSvgX, getSvgY }) => (
